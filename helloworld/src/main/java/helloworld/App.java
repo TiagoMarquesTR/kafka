@@ -3,12 +3,17 @@
  */
 package helloworld;
 
+import java.util.concurrent.ExecutionException;
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        NewOrder newOrder = new NewOrder();
+
+        newOrder.name();
     }
 }
