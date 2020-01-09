@@ -8,23 +8,23 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class NewOrder {
+public class SendHelloWorld {
 
-    public void name() throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties());
-        String value = "132123,311,45";
-        ProducerRecord<String, String> record = new ProducerRecord<>("ECOMMERCE_NEW_ORDER", value, value);
+        String value = "Hello World";
+        ProducerRecord<String, String> record = new ProducerRecord<>("GREETINGS", value, value);
         producer.send(record, (data, ex) -> {
             if (ex != null) {
                 ex.printStackTrace();
                 return;
             }
-            System.out.println("sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset());
+            System.out.println("Success send " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset());
         }).get();
 
     }
 
-    private Properties properties() {
+    private static Properties properties() {
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
